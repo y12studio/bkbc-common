@@ -1,0 +1,16 @@
+<project name="BKBC_COMMON_ANDROID" default="init" basedir=".">
+	<property name="target-dir" location="target" />
+	<property name="bitcoin-pos-android-dir" location="../" />
+	<property name="ver.main" value="3.0" />
+	<tstamp>
+		<format property="NOW_BUILD" pattern="yyyy_MM_dd-HHmmss"
+			locale="en,US" />
+		<format property="DAYLABEL" pattern="yyyyMMdd" locale="en,US" />
+	</tstamp>
+	<target name="init">
+		<echo>target to ${target-dir}</echo>
+	</target>
+	<target name="move_bitcoinpos_project">
+	    <!-- TODO -->
+	</target>
+</project>
