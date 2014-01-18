@@ -15,6 +15,8 @@
  */
 package org.blackbananacoin.common.json;
 
+import org.blackbananacoin.common.bitcoin.Bitcoins;
+
 /**
  * 
  * [Bitcoin Websocket API -
@@ -22,12 +24,10 @@ package org.blackbananacoin.common.json;
  */
 public class BcWsAddrSubTxItem {
 
-	private static final double DIV_BTC = 100000000d;
 	private double value;
-	private double btc;
 
 	private String addr;
-	
+
 	private double type;
 
 	public double getValue() {
@@ -36,7 +36,6 @@ public class BcWsAddrSubTxItem {
 
 	public void setValue(double value) {
 		this.value = value;
-		this.btc = value/DIV_BTC;
 	}
 
 	public String getAddr() {
@@ -55,21 +54,16 @@ public class BcWsAddrSubTxItem {
 		this.type = type;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "BcWsAddrSubTxItem [value=" + value + ", btc=" + btc + ", addr="
+		return "BcWsAddrSubTxItem [value=" + value  + ", addr="
 				+ addr + ", type=" + type + "]";
 	}
 
-	public double getBtc() {
-		return btc;
-	}
-
-	public void setBtc(double btc) {
-		this.btc = btc;
-	}
 
 }

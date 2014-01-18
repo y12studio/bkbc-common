@@ -140,4 +140,20 @@ public class TwdBit {
 				+ ", median24hr=" + median24hr + "]";
 	}
 
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public long getTimems() {
+		return timems;
+	}
+
+	public void setTimems(long timems) {
+		this.timems = timems;
+	}
+
 }
