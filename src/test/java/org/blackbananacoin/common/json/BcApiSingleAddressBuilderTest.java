@@ -33,6 +33,7 @@ public class BcApiSingleAddressBuilderTest {
 		assertEquals(4, model.getN_tx());
 		BcApiSingleAddrTx lastTx = b.getLastTx(model);
 		assertNotNull(lastTx);
+		assertEquals(1389425700L,lastTx.getUnixTime());
 		BcApiSingleAddrTxItem item = lastTx.getFirstTxInputItem();
 		assertNotNull(item);
 		assertEquals("19yMoeDW4KRZ1651rs1tFe86YKi3vSuAVj", item.getAddr());

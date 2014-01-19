@@ -61,7 +61,8 @@ public class BcApiSingleAddressBuilder {
 		Map itemMap = model.getTxs().get(0);
 		BcApiSingleAddrTx tx = new BcApiSingleAddrTx();
 		System.out.println(itemMap);
-		tx.setBlock_height(((Double) (itemMap.get("block_height"))).longValue());
+		tx.setBlockHeight(Utils.toLong(itemMap.get("block_height")));
+		tx.setUnixTime(Utils.toLong(itemMap.get("time")));
 		tx.setInputs((List<Map>) itemMap.get("inputs"));
 		return tx;
 	}

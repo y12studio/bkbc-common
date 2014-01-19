@@ -2,21 +2,16 @@ package org.blackbananacoin.common.json;
 
 public class BcApiSingleAddrTxItem {
 
-	private double value;
+	private long value;
 	private String addr;
-	private double tx_index;
+	private long txIndex;
 	/**
 	 * @return the value
 	 */
 	public double getValue() {
 		return value;
 	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(double value) {
-		this.value = value;
-	}
+	
 	/**
 	 * @return the addr
 	 */
@@ -29,17 +24,17 @@ public class BcApiSingleAddrTxItem {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	/**
-	 * @return the tx_index
-	 */
-	public double getTx_index() {
-		return tx_index;
+	
+	public void setValue(long value) {
+		this.value = value;
 	}
-	/**
-	 * @param tx_index the tx_index to set
-	 */
-	public void setTx_index(double tx_index) {
-		this.tx_index = tx_index;
+
+	public long getTxIndex() {
+		return txIndex;
+	}
+
+	public void setTxIndex(long txIndex) {
+		this.txIndex = txIndex;
 	}
 
 }

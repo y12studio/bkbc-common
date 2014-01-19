@@ -1,6 +1,5 @@
 package org.blackbananacoin.common.json;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkPositionIndex;
 
@@ -9,8 +8,9 @@ import java.util.Map;
 
 public class BcApiSingleAddrTx {
 
-	private long block_height;
-	
+	private long blockHeight;
+	private long unixTime;
+
 	private List<Map> inputs;
 
 	public BcApiSingleAddrTxItem getFirstTxInputItem() {
@@ -21,18 +21,10 @@ public class BcApiSingleAddrTx {
 		Map prevOut = (Map) input0.get("prev_out");
 		// System.out.println(prevOut);
 		BcApiSingleAddrTxItem item = new BcApiSingleAddrTxItem();
-		item.setValue((Double) prevOut.get("value"));
+		item.setValue(Utils.toLong(prevOut.get("value")));
 		item.setAddr((String) prevOut.get("addr"));
-		item.setTx_index((Double) prevOut.get("tx_index"));
+		item.setTxIndex(Utils.toLong(prevOut.get("tx_index")));
 		return item;
-	}
-
-	public long getBlock_height() {
-		return block_height;
-	}
-
-	public void setBlock_height(long block_height) {
-		this.block_height = block_height;
 	}
 
 	/**
@@ -43,10 +35,27 @@ public class BcApiSingleAddrTx {
 	}
 
 	/**
-	 * @param inputs the inputs to set
+	 * @param inputs
+	 *            the inputs to set
 	 */
 	public void setInputs(List<Map> inputs) {
 		this.inputs = inputs;
+	}
+
+	public long getUnixTime() {
+		return unixTime;
+	}
+
+	public void setUnixTime(long unixTime) {
+		this.unixTime = unixTime;
+	}
+
+	public long getBlockHeight() {
+		return blockHeight;
+	}
+
+	public void setBlockHeight(long blockHeight) {
+		this.blockHeight = blockHeight;
 	}
 
 }

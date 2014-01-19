@@ -30,7 +30,9 @@ public class BcApiSingleAddress {
 	private long total_received;
 	private long total_send;
 	private long final_balance;
+	
 	private List<Map> txs;
+	
 	public String getAddress() {
 		return address;
 	}
