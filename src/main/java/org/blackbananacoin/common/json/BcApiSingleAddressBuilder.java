@@ -54,16 +54,29 @@ public class BcApiSingleAddressBuilder {
 		return gson.toJson(model);
 	}
 
-	public BcApiSingleAddrTx getLastTx(BcApiSingleAddress model) {
+	public BcApiSingleAddrTx parseLastTx(BcApiSingleAddress model) {
 		checkNotNull(model);
 		checkNotNull(model.getTxs());
 		checkPositionIndex(0, model.getTxs().size());
 		Map itemMap = model.getTxs().get(0);
 		BcApiSingleAddrTx tx = new BcApiSingleAddrTx();
-		System.out.println(itemMap);
-		tx.setBlockHeight(Utils.toLong(itemMap.get("block_height")));
-		tx.setUnixTime(Utils.toLong(itemMap.get("time")));
-		tx.setInputs((List<Map>) itemMap.get("inputs"));
+		// System.out.println(itemMap);
+		if (itemMap.containsKey("block_height")) {
+			// NOTE :
+			// new tx block_height is NULL
+			tx.setBlockHeight(Utils.toLong(itemMap.get("block_height")));
+		} else {
+			tx.setBlockHeight(-1);
+		}
+		if (itemMap.containsKey("time")) {
+			tx.setUnixTime(Utils.toLong(itemMap.get("time")));
+		}
+		if (itemMap.containsKey("inputs")) {
+			tx.setInputs((List<Map>) itemMap.get("inputs"));
+		}
+		if (itemMap.containsKey("out")) {
+			tx.setOut((List<Map>) itemMap.get("out"));
+		}
 		return tx;
 	}
 
