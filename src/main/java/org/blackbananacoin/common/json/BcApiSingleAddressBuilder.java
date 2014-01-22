@@ -36,7 +36,7 @@ public class BcApiSingleAddressBuilder {
 	}
 
 	public BcApiSingleAddress buildDemo() throws IOException {
-		URL url = Resources.getResource("bcapi_single_address_v140118.json");
+		URL url = Resources.getResource("bcapi_v140118.txt");
 		String json = Resources.toString(url, Charsets.UTF_8);
 		return toModel(json);
 	}
@@ -55,10 +55,14 @@ public class BcApiSingleAddressBuilder {
 	}
 
 	public BcApiSingleAddrTx parseLastTx(BcApiSingleAddress model) {
+		return parseTx(model, 0);
+	}
+
+	public BcApiSingleAddrTx parseTx(BcApiSingleAddress model, int index) {
 		checkNotNull(model);
 		checkNotNull(model.getTxs());
-		checkPositionIndex(0, model.getTxs().size());
-		Map itemMap = model.getTxs().get(0);
+		checkPositionIndex(index, model.getTxs().size());
+		Map itemMap = model.getTxs().get(index);
 		BcApiSingleAddrTx tx = new BcApiSingleAddrTx();
 		// System.out.println(itemMap);
 		if (itemMap.containsKey("block_height")) {

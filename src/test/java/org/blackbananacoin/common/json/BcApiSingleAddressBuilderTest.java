@@ -54,6 +54,7 @@ public class BcApiSingleAddressBuilderTest {
 		assertEquals(5, model.getN_tx());
 		BcApiSingleAddrTx lastTx = b.parseLastTx(model);
 		assertNotNull(lastTx);
+		assertTrue(lastTx.getUnixTime()>0);
 		System.out.println(lastTx);
 		assertNotNull(lastTx.getOut());
 		assertEquals(2, lastTx.getOut().size());
@@ -80,7 +81,11 @@ public class BcApiSingleAddressBuilderTest {
 		BcApiSingleAddrTx lastTx = b.parseLastTx(model);
 		assertNotNull(lastTx);
 		assertEquals(-1L, lastTx.getBlockHeight());
-
+		
+		BcApiSingleAddrTx last2Tx = b.parseTx(model, 1);
+		assertNotNull(last2Tx);
+		System.out.println(last2Tx);
+		assertEquals(276479,last2Tx.getBlockHeight());
 	}
 
 }

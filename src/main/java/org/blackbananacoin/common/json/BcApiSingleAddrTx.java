@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class BcApiSingleAddrTx {
 
-	private long blockHeight;
-	private long unixTime;
+	private long blockHeight = -1L;
+	private long unixTime = -1L;
 	private List<Map> inputs;
 	private List<Map> out;
 
