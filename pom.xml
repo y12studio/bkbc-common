@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.blackbananacoin</groupId>
   <artifactId>bkbc-common</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <dependencies>
   	<dependency>
   		<groupId>com.google.code.gson</groupId>
@@ -19,6 +19,22 @@
   		<artifactId>junit</artifactId>
   		<version>4.11</version>
   		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google</groupId>
+  		<artifactId>bitcoinj</artifactId>
+  		<version>0.11</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.madgag</groupId>
+  		<artifactId>scpkix-jdk15on</artifactId>
+  		<version>1.47.0.3</version>
+  		<exclusions>
+  			<exclusion>
+  				<artifactId>sc-light-jdk15on</artifactId>
+  				<groupId>com.madgag</groupId>
+  			</exclusion>
+  		</exclusions>
   	</dependency>
   </dependencies>
 </project>

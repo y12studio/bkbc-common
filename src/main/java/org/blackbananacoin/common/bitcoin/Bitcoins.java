@@ -6,6 +6,11 @@ public class Bitcoins {
 
 	public static final long COIN = 100000000L;;
 
+	/**
+	 * @param addr
+	 * @param amount
+	 * @return
+	 */
 	public static String buildUri(String addr, double amount) {
 		checkNotNull(addr);
 		final StringBuilder uri = new StringBuilder("bitcoin:");
