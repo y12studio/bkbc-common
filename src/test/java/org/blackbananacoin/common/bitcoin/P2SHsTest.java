@@ -1,21 +1,19 @@
 package org.blackbananacoin.common.bitcoin;
 
-import java.math.BigInteger;
+import static org.junit.Assert.*;
 
-import org.spongycastle.util.encoders.Hex;
+import org.blackbananacoin.common.bitcoin.P2SHs.MultiSigResult;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
 import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.common.collect.Lists;
 
-public class P2SH {
+public class P2SHsTest {
 
 	// https://gist.github.com/gavinandresen/3966071
 
@@ -28,7 +26,12 @@ public class P2SH {
 
 	public static String P2SH_ADDR = "3QJmV3qfvL9SuYo34YihAf3sRCW3qSinyC";
 
-	public static void main(String[] args) throws AddressFormatException {
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@Test
+	public void testCreateMultiSigAddress() throws AddressFormatException {
 		DumpedPrivateKey dpri1 = new DumpedPrivateKey(MainNetParams.get(), pri1);
 		DumpedPrivateKey dpri2 = new DumpedPrivateKey(MainNetParams.get(), pri2);
 		DumpedPrivateKey dpri3 = new DumpedPrivateKey(MainNetParams.get(), pri3);
@@ -47,19 +50,9 @@ public class P2SH {
 		System.out.println(Utils.bytesToHexString(k3.getPubKey()));
 		System.out.println(addr3);
 
-		// 2-3
-		byte[] x1 = Script.createMultiSigOutputScript(2,
-				Lists.newArrayList(k1, k2, k3));
-		// [bitcoin-multisig/index.html at master ·
-		// OutCast3k/bitcoin-multisig](https://github.com/OutCast3k/bitcoin-multisig/blob/master/index.html)
-		Address addr = Address.fromP2SHHash(MainNetParams.get(),
-				Utils.sha256hash160(x1));
-		
-		System.out.println(addr);
-
-		String redeemScript = Utils.bytesToHexString(x1);
-		System.out.println(redeemScript);
-
+		MultiSigResult r = P2SHs.createMultiSigAddress(2, k1, k2, k3);
+		assertNotNull(r);
+		assertEquals(P2SH_ADDR, r.getAddress().toString());
 	}
 
 }
