@@ -15,7 +15,6 @@
  */
 package org.blackbananacoin.common.json;
 
-import org.blackbananacoin.common.bitcoin.Bitcoins;
 
 /**
  * 
