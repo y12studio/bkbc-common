@@ -21,7 +21,8 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.script.Script;
-import com.google.common.collect.Lists;
+import com.google.bitcoin.script.ScriptBuilder;
+import com.google.common.collect.ImmutableList;
 
 public class P2SHs {
 
@@ -53,14 +54,14 @@ public class P2SHs {
 	public static MultiSigResult createMultiSigAddress(int threshold,
 			ECKey... karr) {
 		// 2-3
-		byte[] x1 = Script.createMultiSigOutputScript(threshold,
-				Lists.newArrayList(karr));
+		Script script = ScriptBuilder.createMultiSigOutputScript(threshold,
+				ImmutableList.copyOf(karr));
 		// [bitcoin-multisig/index.html at master ·
 		// OutCast3k/bitcoin-multisig](https://github.com/OutCast3k/bitcoin-multisig/blob/master/index.html)
 		Address addr = Address.fromP2SHHash(MainNetParams.get(),
-				Utils.sha256hash160(x1));
+				Utils.sha256hash160(script.getProgram()));
 
-		String redeemScript = Utils.bytesToHexString(x1);
+		String redeemScript = Utils.bytesToHexString(script.getProgram());
 		MultiSigResult r = new MultiSigResult();
 		r.setAddress(addr);
 		r.setRedeemScript(redeemScript);

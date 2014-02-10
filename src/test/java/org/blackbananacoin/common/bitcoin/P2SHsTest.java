@@ -28,6 +28,7 @@ public class P2SHsTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@Test

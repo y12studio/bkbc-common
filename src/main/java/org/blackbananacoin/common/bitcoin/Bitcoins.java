@@ -22,9 +22,13 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.Base58;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
+import com.google.bitcoin.core.VersionedChecksummedBytes;
+import com.google.bitcoin.params.MainNetParams;
 
 public class Bitcoins {
 
@@ -50,6 +54,39 @@ public class Bitcoins {
 		ECKey eckey = new ECKey(new BigInteger(1, Utils.doubleDigest(seed
 				.getBytes("UTF-8"))));
 		return eckey;
+	}
+
+	public static String createMainBurnAddress(String msg)
+			throws AddressFormatException {
+		StringBuilder sb = new StringBuilder("1");
+		sb.append(msg.replace('l', 'L').replace('0', '1').replace('O', 'o')
+				.replace('I', 'i'));
+		// len 34 - 6 = 28
+		if (sb.length() < 28) {
+			int diff = 28 - sb.length();
+			for (int i = 0; i < diff; i++) {
+				sb.append("8");
+			}
+		}
+		// provide fake checksum
+		for (int i = 0; i < 6; i++) {
+			sb.append("2");
+		}
+		// System.out.println(sb.toString());
+		byte[] xx = Base58.decode(sb.toString());
+		// System.out.println(Utils.bytesToHexString(xx));
+		byte[] digestTarget = copyOfRange(xx, 0, xx.length - 4);
+		byte[] check = Utils.doubleDigest(digestTarget);
+		System.arraycopy(check, 0, xx, xx.length - 4, 4);
+		return Base58.encode(xx);
+
+	}
+
+	private static byte[] copyOfRange(byte[] source, int from, int to) {
+		byte[] range = new byte[to - from];
+		System.arraycopy(source, from, range, 0, range.length);
+
+		return range;
 	}
 
 	public static String walletPrivateKeyFormat(ECKey k,
